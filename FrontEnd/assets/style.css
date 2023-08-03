@@ -187,10 +187,6 @@ nav li {
 	font-size: 1.2em;
 }
 
-li:hover {
-	color: #B1663C;
-}
-
 #introduction {
 	display: flex;
 	align-items: center;
@@ -318,4 +314,19 @@ button {
 .filters button.active {
 	background-color: #1D6154;
 	color: #FFF;
+}
+
+button:hover,
+input[type="submit"]:hover {
+	transform: scale(1.030);
+	transition: 0.2s;
+}
+
+li a {
+	color: black;
+	text-decoration: none;
+}
+
+li a:hover {
+	color: #B1663C;
 }
