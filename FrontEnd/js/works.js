@@ -78,8 +78,8 @@ function filterCategory() {
   }
 }
 
-export default {
-  displayWorks,
-  addButtonListener,
-  filterCategory
-};
+(async () => {
+  await displayWorks();
+  addButtonListener();
+  filterCategory();
+})();
