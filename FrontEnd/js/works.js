@@ -2,7 +2,6 @@ import Api from './api.js';
 
 function addButtonListener() {
   const buttons = document.querySelectorAll('.filters button');
-  console.log(buttons);
   for (let i = 0; i < buttons.length; i += 1) {
     buttons[i].addEventListener('click', (event) => {
       buttons.forEach((btn) => {
@@ -66,13 +65,14 @@ function filterCategory() {
   for (let i = 0; i < buttons.length; i += 1) {
     buttons[i].addEventListener('click', (event) => {
       const figures = document.querySelectorAll('.gallery figure');
+      const targetValue = event.currentTarget.value;
 
       for (let j = 0; j < figures.length; j += 1) {
-        if (figures[j].id !== event.currentTarget.value && event.currentTarget.value !== '0') {
+        if (figures[j].id !== targetValue && targetValue !== '0') {
           figures[j].style.display = 'none';
-        } else {
-          figures[j].style.display = 'block';
+          continue;
         }
+        figures[j].style.display = 'block';
       }
     });
   }
