@@ -39,7 +39,14 @@ async function displayWorks() {
   const works = await Api.getWorks();
   const portfolio = document.createElement('section');
   portfolio.id = 'portfolio';
-  portfolio.innerHTML = '<h2>Mes projets</h2>';
+  portfolio.innerHTML = `
+  <div class="projects">
+      <h2>Mes projets</h2>
+      <div class="edit-button">
+      <i class="fa-solid fa-pen-to-square"></i>
+      <span>Modifier</span>
+      </div>
+  </div>`;
 
   const contactSection = document.getElementById('contact');
   const main = document.querySelector('main');
@@ -78,8 +85,8 @@ function filterCategory() {
   }
 }
 
-(async () => {
-  await displayWorks();
-  addButtonListener();
-  filterCategory();
-})();
+export default {
+  displayWorks,
+  addButtonListener,
+  filterCategory
+};

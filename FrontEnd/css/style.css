@@ -221,9 +221,20 @@ nav li {
 	margin-bottom: 0.5em;
 }
 
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+.edit-button {
+	margin: 15px 0 0 57px;
+	cursor: pointer;
+}
+
+.projects {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 51px;
+}
+
+.projects .edit-button {
+	margin: 10px 21px;
+	cursor: pointer;
 }
 
 .gallery {
@@ -336,4 +347,8 @@ li a {
 
 li a:hover {
 	color: #B1663C;
+}
+
+#portfolio {
+	margin-top: 193px;
 }
