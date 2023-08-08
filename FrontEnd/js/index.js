@@ -1,4 +1,5 @@
 import Works from './works.js';
+import Modal from './modal.js';
 
 function updatePropertyVisibility(display) {
   const data = document.querySelectorAll('.edit-button');
@@ -17,6 +18,7 @@ function manageToken() {
   if (localStorage.getItem('token')) {
     loginLink[0].innerText = 'logout';
     updatePropertyVisibility(true);
+    Modal.displayModal();
   }
 
   loginLink[0].addEventListener('click', (event) => {
