@@ -63,8 +63,19 @@ async function deleteImageById(workId) {
   return false;
 }
 
+/**
+ * Delete all works
+ */
+async function deleteAllWorks() {
+  const works = await getWorks();
+  for (const work of works) {
+    await deleteImageById(work.id);
+  }
+}
+
 export default {
   getWorks,
   getUserToken,
-  deleteImageById
+  deleteImageById,
+  deleteAllWorks
 };

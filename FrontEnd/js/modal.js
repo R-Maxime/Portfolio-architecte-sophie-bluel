@@ -67,6 +67,17 @@ function deleteImage() {
   }
 }
 
+function deleteGallery() {
+  const deleteAll = document.querySelector('.delete-gallery');
+  deleteAll.addEventListener('click', async () => {
+    await Api.deleteAllWorks();
+    const gallerys = document.querySelectorAll('.gallery');
+    for (const gallery of gallerys) {
+      gallery.remove();
+    }
+  });
+}
+
 /**
  * Used to generate the modal, call the addImages and closModal functions
  */
@@ -89,6 +100,7 @@ async function generateModal() {
   modalContent.innerHTML += '<span class="delete-gallery">Supprimer la galerie</span>';
   closeModal();
   deleteImage();
+  deleteGallery();
 }
 
 /**
