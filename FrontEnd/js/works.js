@@ -59,7 +59,7 @@ async function displayWorks() {
   for (let i = 0; i < works.length; i += 1) {
     gallery += `
     <figure id="${works[i].category.id}">
-      <img src="${works[i].imageUrl}" alt="${works[i].title}">
+      <img src="${works[i].imageUrl}" alt="${works[i].title}" id=${works[i].id}>
       <figcaption>${works[i].title}</figcaption>
     </figure>`;
   }

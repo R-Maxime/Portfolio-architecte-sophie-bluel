@@ -1,3 +1,7 @@
+* {
+  font-family: Syne;
+}
+
 .modal {
   position: fixed;
   z-index: 1;
@@ -14,7 +18,7 @@
   margin: 5% auto;
   border: 1px solid #888;
   width: 630px;
-  height: 731px;
+  height: 777px;
   border-radius: 10px;
 }
 
@@ -86,5 +90,40 @@
   color: white;
   border: #000 10px;
   box-sizing: border-box;
+  cursor: pointer;
+}
+
+hr {
+  border: none;
+  color: #B3B3B3;
+  width: 420px;
+  height: 0px;
+  border: 1px solid #B3B3B3;
+}
+
+.add-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 237px;
+  height: 36px;
+  border-radius: 60px;
+  background: #1D6154;
+  border: none;
+  margin: 38px auto 23px auto;
+}
+
+.add-image span {
+  color: #FFF;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.delete-gallery {
+  display: flex;
+  justify-content: center;
+  color: #D65353;
+  font-weight: 400;
+  padding-bottom: 48px;
   cursor: pointer;
 }

@@ -1,6 +1,12 @@
+const apiUrl = 'http://localhost:5678/api';
+
+/**
+ * Get all works
+ * @returns {Promise<Array>}
+ */
 async function getWorks() {
   try {
-    const response = await fetch('http://localhost:5678/api/works');
+    const response = await fetch(`${apiUrl}/works`);
     const json = await response.json();
     return json;
   } catch (error) {
@@ -9,9 +15,15 @@ async function getWorks() {
   return null;
 }
 
+/**
+ * Generate a token for a user, require login and password
+ * @param {string} login
+ * @param {string} password
+ * @returns {Promise<Array>}
+ */
 async function getUserToken(login, password) {
   try {
-    const response = await fetch('http://localhost:5678/api/users/login', {
+    const response = await fetch(`${apiUrl}/users/login`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -28,7 +40,31 @@ async function getUserToken(login, password) {
   return null;
 }
 
+/**
+ * Delete an image by id
+ * @param {number} workId
+ * @returns {Promise<boolean>}
+ */
+async function deleteImageById(workId) {
+  const token = localStorage.getItem('token');
+  if (!token) return false;
+  try {
+    await fetch(`${apiUrl}/works/${workId}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: '*/*',
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+  }
+  return false;
+}
+
 export default {
   getWorks,
-  getUserToken
+  getUserToken,
+  deleteImageById
 };
