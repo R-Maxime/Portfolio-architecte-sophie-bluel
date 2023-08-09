@@ -67,6 +67,9 @@ function deleteImage() {
   }
 }
 
+/**
+ * Used to delete all the gallery's images from the modal, the gallery and the database
+ */
 function deleteGallery() {
   const deleteAll = document.querySelector('.delete-gallery');
   deleteAll.addEventListener('click', async () => {
