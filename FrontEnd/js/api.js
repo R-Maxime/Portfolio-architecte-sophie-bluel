@@ -1,6 +1,21 @@
 const apiUrl = 'http://localhost:5678/api';
 
 /**
+ *  Get all categories
+ * @returns {Promise<Array>}
+ */
+async function getCategories() {
+  try {
+    const response = await fetch(`${apiUrl}/categories`);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+  return null;
+}
+
+/**
  * Get all works
  * @returns {Promise<Array>}
  */
@@ -63,6 +78,25 @@ async function deleteImageById(workId) {
   return false;
 }
 
+async function addImages(formData) {
+  const token = localStorage.getItem('token');
+  if (!token) return false;
+  try {
+    await fetch(`${apiUrl}/works`, {
+      method: 'POST',
+      headers: {
+        Accept: '*/*',
+        Authorization: `Bearer ${token}`
+      },
+      body: formData
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+  }
+  return false;
+}
+
 /**
  * Delete all works
  */
@@ -77,5 +111,7 @@ export default {
   getWorks,
   getUserToken,
   deleteImageById,
-  deleteAllWorks
+  deleteAllWorks,
+  getCategories,
+  addImages
 };

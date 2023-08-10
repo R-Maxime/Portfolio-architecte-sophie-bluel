@@ -1,5 +1,5 @@
 import Works from './works.js';
-import Modal from './modal.js';
+import DeleteModal from './deleteModal.js';
 
 /**
  *Change the visibility of the edit button and the filter button when user is logged or not
@@ -14,6 +14,7 @@ function updatePropertyVisibility(display) {
   const filter = document.querySelector('.filters');
   filter.style.display = display ? 'none' : '';
 }
+
 /**
  * Function who manage the DOM when user is logged or not
  */
@@ -24,7 +25,7 @@ function manageToken() {
   if (localStorage.getItem('token')) {
     loginLink[0].innerText = 'logout';
     updatePropertyVisibility(true);
-    Modal.displayModal();
+    DeleteModal.displayEditModal();
   }
 
   loginLink[0].addEventListener('click', (event) => {

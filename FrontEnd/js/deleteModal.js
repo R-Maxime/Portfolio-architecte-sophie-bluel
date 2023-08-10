@@ -1,9 +1,10 @@
 import Api from './api.js';
+import AddModal from './addModal.js';
 
 /**
  * Used to close the modal on cross click, outside click or escape key
  */
-function closeModal() {
+function closeEditModal() {
   const modal = document.querySelector('.modal');
   const closeButton = modal.querySelector('.close');
   closeButton.addEventListener('click', () => {
@@ -26,7 +27,7 @@ function closeModal() {
  * @param {Array} works
  * @param {Document} modal
  */
-function addImages(works, modal) {
+function addImagesToModal(works, modal) {
   let gallery = '<div class="gallery">';
   for (let i = 0; i < works.length; i += 1) {
     gallery += `
@@ -82,42 +83,43 @@ function deleteGallery() {
 }
 
 /**
- * Used to generate the modal, call the addImages and closeModal functions
+ * Used to generate the edit modal, call the addImages and closeModal functions
  */
-async function generateModal() {
+async function generateEditModal() {
   const works = await Api.getWorks();
 
   const modal = document.createElement('div');
   modal.classList.add('modal');
   modal.innerHTML = `
-    <div class="modal-content">
+    <div class="edit-modal-content">
       <span class="close">&times;</span>
-      <p>Galerie photo</p>
+      <h3>Galerie photo</h3>
     </div>
   `;
-  const modalContent = modal.querySelector('.modal-content');
+  const modalContent = modal.querySelector('.edit-modal-content');
   document.body.appendChild(modal);
-  addImages(works, modalContent);
+  addImagesToModal(works, modalContent);
   modalContent.innerHTML += '<hr>';
-  modalContent.innerHTML += '<button class="add-image"><span>Ajouter une image</span></button>';
+  modalContent.innerHTML += '<button class="add-image button"><span>Ajouter une image</span></button>';
   modalContent.innerHTML += '<span class="delete-gallery">Supprimer la galerie</span>';
-  closeModal();
+  closeEditModal();
   deleteImage();
   deleteGallery();
+  AddModal.displayAddModal();
 }
 
 /**
- * Used to display the modal on click on the edit button
+ * Used to display the edit modal on click on the edit button
  */
-function displayModal() {
+function displayEditModal() {
   const editButtons = document.querySelectorAll('.edit-button');
   editButtons.forEach(button => {
     button.addEventListener('click', () => {
-      generateModal();
+      generateEditModal();
     });
   });
 }
 
 export default {
-  displayModal
+  displayEditModal
 };

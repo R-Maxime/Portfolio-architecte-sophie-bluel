@@ -13,7 +13,8 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+.edit-modal-content,
+.add-modal-content {
   background-color: #fff;
   margin: 5% auto;
   border: 1px solid #888;
@@ -22,15 +23,21 @@
   border-radius: 10px;
 }
 
-.modal-content p {
-  padding: 60px;
+.edit-modal-content h3,
+.add-modal-content h3 {
+  padding-top: 60px;
   color: #000;
   text-align: center;
   font-size: 26px;
   line-height: normal;
 }
 
-.close {
+.edit-modal-content h3 {
+  padding-bottom: 46px;
+}
+
+.close,
+.return {
   color: black;
   float: right;
   width: 24px;
@@ -40,8 +47,15 @@
   padding: 27px 30px 0 0;
 }
 
+.return {
+  float: left;
+  padding-left: 30px;
+}
+
 .close:hover,
-.close:focus {
+.close:focus,
+.return:hover,
+.return:focus {
   cursor: pointer;
 }
 
@@ -101,16 +115,19 @@ hr {
   border: 1px solid #B3B3B3;
 }
 
-.add-image {
+.button {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 237px;
   height: 36px;
   border-radius: 60px;
-  background: #1D6154;
   border: none;
   margin: 38px auto 23px auto;
+}
+
+.add-image {
+  background: #1D6154;
 }
 
 .add-image span {
@@ -126,4 +143,87 @@ hr {
   font-weight: 400;
   padding-bottom: 48px;
   cursor: pointer;
+}
+
+.upload-box {
+  display: flex;
+  align-items: center;
+  margin: 30px 105px 36px 105px;
+  width: 420px;
+  height: 169px;
+  border-radius: 3px;
+  background: #E8F1F6;
+  flex-direction: column;
+}
+
+.img-icon {
+  width: 58px;
+  height: 46px;
+  padding: 22px 182px 15px 180px;
+}
+
+.upload-box label {
+  color: #306685;
+  background-color: #CBD6DC;
+  padding: 5px 33px;
+  width: 173px;
+  height: 36px;
+  text-align: center;
+  border-radius: 60px;
+  cursor: pointer;
+}
+
+.upload-box .img-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-box p {
+  padding: 7px 0 19px 0;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.input-group label {
+  color: #3D3D3D;
+  line-height: normal;
+  padding-bottom: 10px;
+}
+
+.input-group input,
+.input-group select {
+  height: 51px;
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+  border-radius: 3px;
+  border: none;
+  margin-bottom: 21px;
+}
+
+input[type="text"] {
+  padding-left: 20px;
+}
+
+.add-modal-content hr {
+  margin-top: 47px;
+}
+
+.validation:disabled {
+  background: #A7A7A7;
+  color: #FFF;
+}
+
+.validation {
+  background: #1D6154;
+  color: #FFF;
 }
