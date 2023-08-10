@@ -82,7 +82,7 @@ function deleteGallery() {
 }
 
 /**
- * Used to generate the modal, call the addImages and closModal functions
+ * Used to generate the modal, call the addImages and closeModal functions
  */
 async function generateModal() {
   const works = await Api.getWorks();

@@ -1,6 +1,9 @@
 import Api from './api.js';
 
-function addButtonListener() {
+/**
+ * Manage the button style when clicked or not
+ */
+function manageButtonStyleOnClick() {
   const buttons = document.querySelectorAll('.filters button');
   for (let i = 0; i < buttons.length; i += 1) {
     buttons[i].addEventListener('click', (event) => {
@@ -16,7 +19,10 @@ function addButtonListener() {
     });
   }
 }
-
+/**
+ * Function who add filters button with the categories get in the Works
+ * @param {Array} works
+ */
 function addFiltersButton(works) {
   const categories = [{ id: 0, name: 'Tous' }];
 
@@ -35,6 +41,9 @@ function addFiltersButton(works) {
   }
 }
 
+/**
+ * Function who generates the portfolio section with the works get in the API
+ */
 async function displayWorks() {
   const works = await Api.getWorks();
   const portfolio = document.createElement('section');
@@ -67,6 +76,9 @@ async function displayWorks() {
   portfolio.innerHTML += `${gallery}</div>`;
 }
 
+/**
+ * Function who filter the works by category
+ */
 function filterCategory() {
   const buttons = document.querySelectorAll('.filters button');
   for (let i = 0; i < buttons.length; i += 1) {
@@ -87,6 +99,6 @@ function filterCategory() {
 
 export default {
   displayWorks,
-  addButtonListener,
+  manageButtonStyleOnClick,
   filterCategory
 };
