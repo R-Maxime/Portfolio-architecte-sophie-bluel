@@ -77,6 +77,28 @@ async function displayWorks() {
 }
 
 /**
+ * Function who add the newest works in the portfolio section
+ */
+async function addNewestWorks() {
+  const works = await Api.getWorks();
+  const gallery = document.querySelector('.gallery');
+
+  for (let i = 0; i < works.length; i += 1) {
+    const existingFigure = document.getElementById(works[i].id);
+
+    if (!existingFigure) {
+      const newFigure = document.createElement('figure');
+      newFigure.id = works[i].id;
+      newFigure.innerHTML = `
+        <img src="${works[i].imageUrl}" alt="${works[i].title}" id=${works[i].id}>
+        <figcaption>${works[i].title}</figcaption>
+      `;
+      gallery.appendChild(newFigure);
+    }
+  }
+}
+
+/**
  * Function who filter the works by category
  */
 function filterCategory() {
@@ -100,5 +122,6 @@ function filterCategory() {
 export default {
   displayWorks,
   manageButtonStyleOnClick,
-  filterCategory
+  filterCategory,
+  addNewestWorks
 };

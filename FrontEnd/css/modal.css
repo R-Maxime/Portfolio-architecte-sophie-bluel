@@ -227,3 +227,8 @@ input[type="text"] {
   background: #1D6154;
   color: #FFF;
 }
+
+#add-img-preview {
+  width: 129px;
+  height: 193px;
+}

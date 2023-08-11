@@ -1,31 +1,39 @@
 import Api from './api.js';
+import Works from './works.js';
 
 const categories = [];
 const titleErrorText = 'Veuillez renseigner un titre d\'au moins 3 caractères';
 const categoryErrorText = 'Veuillez sélectionner une catégorie';
-const fileErrorText = 'Le fichier doit être au format PNG ou JPEG.';
+const fileErrorText = 'Le fichier doit être au format PNG ou JPG.';
 const sizeErrorText = 'Le fichier ne doit pas dépasser 4 MO.';
 
 /**
  *  Used to close the add modal on click on the arrow and display the edit modal
  *  Used to close all the modals on click on the close button
+ *  @param {Boolean} close - If true, close the modal without add the listeners
  */
-function closeAddModal() {
+function closeAddModal(close) {
   const modal = document.querySelector('.modal');
   const addModalContent = document.querySelector('.add-modal-content');
-  const editModalContent = document.querySelector('.edit-modal-content');
-  const returnArrow = document.querySelector('.return');
-  const closeButton = addModalContent.querySelector('.close');
 
-  returnArrow.addEventListener('click', () => {
-    addModalContent.remove();
-    editModalContent.style.display = '';
-    displayAddModal();
-  });
-
-  closeButton.addEventListener('click', () => {
+  if (close) {
     modal.remove();
-  });
+    addModalContent.remove();
+  } else {
+    const returnArrow = document.querySelector('.return');
+    const closeButton = addModalContent.querySelector('.close');
+    const editModalContent = document.querySelector('.edit-modal-content');
+
+    returnArrow.addEventListener('click', () => {
+      addModalContent.remove();
+      editModalContent.style.display = '';
+      displayAddModal();
+    });
+
+    closeButton.addEventListener('click', () => {
+      modal.remove();
+    });
+  }
 }
 
 /**
@@ -35,7 +43,7 @@ function addUploadButton(addModalContent) {
   addModalContent.innerHTML += `
   <div class="upload-box">
     <img src="./assets/icons/img-icon.png" class="img-icon">
-    <img id="add-img-preview">
+    <img id="add-img-preview" style="display:none;">
     <input type="file" name="add-img" id="add-img">
     <label class="img-text" for="add-img">+ Ajouter photo</label>
     <p>jpg, png : 4mo max</p>
@@ -130,6 +138,26 @@ function listeningCategory() {
 
   return false;
 }
+/**
+ * Add the preview of the image in the add modal
+ * @param {File} file
+ */
+function addImagePreview(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    const imgPreview = document.querySelector('#add-img-preview');
+    imgPreview.src = reader.result;
+  };
+  reader.readAsDataURL(file);
+  const uploadBox = document.querySelector('.upload-box');
+  for (const children of uploadBox.children) {
+    if (children.id !== 'add-img-preview') {
+      children.style.display = 'none';
+    } else {
+      children.style.display = '';
+    }
+  }
+}
 
 function listeningButton() {
   listeningTitle(); // Start listening title for prevent user if length < 3
@@ -138,10 +166,10 @@ function listeningButton() {
 
   fileInput.addEventListener('change', () => {
     const file = fileInput.files[0];
-    const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    const allowedExtensions = ['jpg', 'png'];
     const maxSize = 4 * 1024 * 1024; // 4 MO
 
-    if (!allowedExtensions.exec(file.name)) {
+    if (!allowedExtensions.includes(file.name.split('.').pop().toLowerCase())) {
       addErrorText('.upload-box', fileErrorText);
       fileInput.value = '';
       return;
@@ -152,12 +180,14 @@ function listeningButton() {
       fileInput.value = '';
       return;
     }
+    addImagePreview(file);
 
     const validationButton = document.querySelector('.validation');
     validationButton.disabled = false;
     removeErrorText();
 
-    validationButton.addEventListener('click', () => {
+    validationButton.addEventListener('click', async (event) => {
+      event.preventDefault();
       const title = listeningTitle();
       const category = listeningCategory();
 
@@ -176,7 +206,9 @@ function listeningButton() {
         formData.append('title', title);
         formData.append('category', category);
         formData.append('image', file);
-        Api.addImages(formData);
+        await Api.addImages(formData);
+        closeAddModal(true);
+        await Works.addNewestWorks();
       }
     });
   });
