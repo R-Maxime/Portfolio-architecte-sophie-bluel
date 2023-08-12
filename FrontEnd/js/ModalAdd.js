@@ -95,7 +95,6 @@ function addErrorText(documentToSelect, textToAdd) {
   const errorText = document.createElement('p');
   errorText.classList.add('error-text');
   errorText.textContent = textToAdd;
-  errorText.style.color = 'red';
   doc.parentNode.insertBefore(errorText, doc.nextSibling);
 }
 
@@ -159,6 +158,49 @@ function addImagePreview(file) {
   }
 }
 
+/**
+ * Reset the modal after validation
+ */
+function reset() {
+  document.querySelector('.validation-text').remove();
+  const uploadBox = document.querySelector('.upload-box');
+  for (const children of uploadBox.children) {
+    if (children.id !== 'add-img-preview') {
+      children.style.display = '';
+    } else {
+      children.style.display = 'none';
+    }
+  }
+  document.querySelector('.input-group input[type="text"]').value = '';
+  document.querySelector('.input-group select').value = '';
+}
+
+/**
+ * On validation, send the data to the API and do things if it's ok or not
+ * @param {string} title
+ * @param {string} category
+ * @param {File} file
+ */
+async function onValidation(title, category, file) {
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('category', category);
+  formData.append('image', file);
+  const res = await Api.addImages(formData);
+
+  if (res === 'success') {
+    await Works.addNewestWorks();
+    const validationButton = document.querySelector('.validation');
+    const validationText = '<p class="validation-text">Image ajoutée avec succès !</p>';
+    validationButton.insertAdjacentHTML('afterend', validationText);
+    setTimeout(() => {
+      reset();
+    }, 2000);
+  } else {
+    addErrorText('.validation', `Une erreur est survenue (${res})`);
+  }
+}
+
 function listeningButton() {
   listeningTitle(); // Start listening title for prevent user if length < 3
 
@@ -202,13 +244,7 @@ function listeningButton() {
       }
 
       if (title && category) {
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('category', category);
-        formData.append('image', file);
-        await Api.addImages(formData);
-        closeAddModal(true);
-        await Works.addNewestWorks();
+        await onValidation(title, category, file);
       }
     });
   });

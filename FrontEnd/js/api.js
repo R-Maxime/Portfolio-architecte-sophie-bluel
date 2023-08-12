@@ -90,11 +90,11 @@ async function addImages(formData) {
       },
       body: formData
     });
-    return true;
+    return 'success';
   } catch (error) {
     console.log(error);
+    return error.message;
   }
-  return false;
 }
 
 /**

@@ -1,5 +1,5 @@
 import Api from './api.js';
-import AddModal from './addModal.js';
+import ModalAdd from './ModalAdd.js';
 
 /**
  * Used to close the modal on cross click, outside click or escape key
@@ -105,7 +105,7 @@ async function generateEditModal() {
   closeEditModal();
   deleteImage();
   deleteGallery();
-  AddModal.displayAddModal();
+  ModalAdd.displayAddModal();
 }
 
 /**
