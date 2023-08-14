@@ -69,14 +69,15 @@ function addImagesToModal(works, modal) {
  */
 function deleteImage() {
   const deleteButtons = document.querySelectorAll('.fa-trash-can');
+  const hr = document.querySelector('.modal hr');
+  const message = document.createElement('p');
+
   for (let i = 0; i < deleteButtons.length; i += 1) {
     const button = deleteButtons[i];
     button.addEventListener('click', async () => {
       const image = button.parentNode;
       const res = await Api.deleteImageById(image.id);
       if (!res) {
-        const hr = document.querySelector('.modal hr');
-        const message = document.createElement('p');
         message.textContent = 'Une erreur est survenue lors de la suppression de l\'image.';
         message.style.color = 'red';
         message.style.textAlign = 'center';
@@ -95,9 +96,6 @@ function deleteImage() {
           break;
         }
       }
-
-      const hr = document.querySelector('.modal hr');
-      const message = document.createElement('p');
       message.textContent = 'L\'image a correctement été supprimée.';
       message.style.color = 'green';
       message.style.textAlign = 'center';
