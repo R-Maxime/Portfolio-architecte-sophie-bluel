@@ -22,6 +22,28 @@ function closeEditModal() {
   });
 }
 
+async function addNewestWorks(works) {
+  const gallery = document.querySelector('.edit-modal-content .gallery');
+
+  for (let i = 0; i < works.length; i += 1) {
+    const existingFigure = document.querySelector(`.modal .gallery figure[id="${works[i].id}"]`);
+    console.log(existingFigure);
+
+    if (!existingFigure) {
+      const newFigure = document.createElement('figure');
+      newFigure.id = works[i].id;
+      newFigure.innerHTML = `    
+    <figure id=${works[i].id}>
+      ${!i ? '<i class="fa-solid fa-up-down-left-right"></i>' : ''}
+        <i class="fa-solid fa-trash-can"></i>
+        <img src="${works[i].imageUrl}" alt="${works[i].title}">
+        <span>éditer</span>
+    </figure>`;
+      gallery.appendChild(newFigure);
+    }
+  }
+}
+
 /**
  * Used to add images to the modal
  * @param {Array} works
@@ -42,6 +64,7 @@ function addImagesToModal(works, modal) {
 }
 
 /**
+ * Start the buttons listeners
  * Used to delete an image from the modal, the gallery and the database
  */
 function deleteImage() {
@@ -50,20 +73,38 @@ function deleteImage() {
     const button = deleteButtons[i];
     button.addEventListener('click', async () => {
       const image = button.parentNode;
-      image.remove();
       const res = await Api.deleteImageById(image.id);
       if (!res) {
+        const hr = document.querySelector('.modal hr');
+        const message = document.createElement('p');
+        message.textContent = 'Une erreur est survenue lors de la suppression de l\'image.';
+        message.style.color = 'red';
+        message.style.textAlign = 'center';
+        hr.parentNode.insertBefore(message, hr);
+        setTimeout(() => {
+          message.remove();
+        }, 2000);
         return;
       }
-
       const gallery = document.querySelector('#portfolio .gallery');
       for (let j = 0; j < gallery.childNodes.length; j += 1) {
         const child = gallery.childNodes[j];
         if (child.nodeName === 'FIGURE' && child.querySelector('img').id === image.id) {
+          image.remove();
           child.remove();
           break;
         }
       }
+
+      const hr = document.querySelector('.modal hr');
+      const message = document.createElement('p');
+      message.textContent = 'L\'image a correctement été supprimée.';
+      message.style.color = 'green';
+      message.style.textAlign = 'center';
+      hr.parentNode.insertBefore(message, hr);
+      setTimeout(() => {
+        message.remove();
+      }, 2000);
     });
   }
 }
@@ -121,5 +162,7 @@ function displayEditModal() {
 }
 
 export default {
-  displayEditModal
+  displayEditModal,
+  addNewestWorks,
+  deleteImage
 };

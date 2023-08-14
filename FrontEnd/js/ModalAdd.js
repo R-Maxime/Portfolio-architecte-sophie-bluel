@@ -1,3 +1,4 @@
+import ModalEdit from './ModalEdit.js';
 import Api from './api.js';
 import Works from './works.js';
 
@@ -28,6 +29,7 @@ function closeAddModal(close) {
       addModalContent.remove();
       editModalContent.style.display = '';
       displayAddModal();
+      ModalEdit.deleteImage();
     });
 
     closeButton.addEventListener('click', () => {
@@ -162,17 +164,31 @@ function addImagePreview(file) {
  * Reset the modal after validation
  */
 function reset() {
-  document.querySelector('.validation-text').remove();
+  const validationText = document.querySelector('.validation-text');
+  if (validationText) {
+    validationText.remove();
+  }
+
   const uploadBox = document.querySelector('.upload-box');
-  for (const children of uploadBox.children) {
-    if (children.id !== 'add-img-preview') {
-      children.style.display = '';
-    } else {
-      children.style.display = 'none';
+  if (uploadBox) {
+    for (const children of uploadBox.children) {
+      if (children.id !== 'add-img-preview') {
+        children.style.display = '';
+      } else {
+        children.style.display = 'none';
+      }
     }
   }
-  document.querySelector('.input-group input[type="text"]').value = '';
-  document.querySelector('.input-group select').value = '';
+
+  const inputText = document.querySelector('.input-group input[type="text"]');
+  if (inputText) {
+    inputText.value = '';
+  }
+
+  const inputSelect = document.querySelector('.input-group select');
+  if (inputSelect) {
+    inputSelect.value = '';
+  }
 }
 
 /**
@@ -189,7 +205,9 @@ async function onValidation(title, category, file) {
   const res = await Api.addImages(formData);
 
   if (res === 'success') {
-    await Works.addNewestWorks();
+    const works = await Api.getWorks();
+    await Works.addNewestWorks(works);
+    await ModalEdit.addNewestWorks(works);
     const validationButton = document.querySelector('.validation');
     const validationText = '<p class="validation-text">Image ajoutée avec succès !</p>';
     validationButton.insertAdjacentHTML('afterend', validationText);

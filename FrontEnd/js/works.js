@@ -79,8 +79,7 @@ async function displayWorks() {
 /**
  * Function who add the newest works in the portfolio section
  */
-async function addNewestWorks() {
-  const works = await Api.getWorks();
+async function addNewestWorks(works) {
   const gallery = document.querySelector('.gallery');
 
   for (let i = 0; i < works.length; i += 1) {
