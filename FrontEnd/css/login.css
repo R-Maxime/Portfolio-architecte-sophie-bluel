@@ -19,12 +19,19 @@
   flex-direction: column;
 }
 
-.login input[type="text"],
-.login input[type="password"] {
+input[type="text"],
+input[type="password"] {
   box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
   width: 379px;
   height: 51px;
   margin-bottom: 20px;
+  border: none;
+}
+
+input[type="submit"] {
+  width: 179px;
+  height: 36px;
+  background: #1D6154;
   border: none;
 }
 
@@ -34,12 +41,7 @@
   padding-bottom: 7px;
 }
 
-.login input[type="submit"] {
-  width: 179px;
-  height: 36px;
-  background: #1D6154;
-  border: none;
-}
+
 
 .login span {
   text-decoration-line: underline;
