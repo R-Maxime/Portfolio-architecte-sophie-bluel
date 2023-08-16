@@ -1,5 +1,5 @@
 import Works from './works.js';
-import ModalEdit from './ModalEdit.js';
+import ModalEdit from './modalEdit.js';
 
 /**
  *Change the visibility of the edit button and the filter button when user is logged or not

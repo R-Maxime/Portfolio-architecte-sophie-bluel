@@ -1,5 +1,5 @@
 import Api from './api.js';
-import ModalAdd from './ModalAdd.js';
+import ModalAdd from './modalAdd.js';
 
 /**
  * Used to close the modal on cross click, outside click or escape key
@@ -22,6 +22,10 @@ function closeEditModal() {
   });
 }
 
+/**
+ * Used to add the newest works on the editModal when a new image is added via the addModal
+ * @param {Array} works
+ */
 async function addNewestWorks(works) {
   const gallery = document.querySelector('.edit-modal-content .gallery');
 
@@ -47,7 +51,7 @@ async function addNewestWorks(works) {
 /**
  * Used to add images to the modal
  * @param {Array} works
- * @param {Document} modal
+ * @param {HTMLElement} modal
  */
 function addImagesToModal(works, modal) {
   let gallery = '<div class="gallery">';

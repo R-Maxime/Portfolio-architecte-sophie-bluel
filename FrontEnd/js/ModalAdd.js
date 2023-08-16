@@ -1,4 +1,4 @@
-import ModalEdit from './ModalEdit.js';
+import ModalEdit from './modalEdit.js';
 import Api from './api.js';
 import Works from './works.js';
 
@@ -41,6 +41,7 @@ function closeAddModal(close) {
 
 /**
  * Used to add the upload button in the add modal
+ * @param {HTMLElement} addModalContent
  */
 function addUploadButton(addModalContent) {
   addModalContent.innerHTML += `
@@ -56,6 +57,7 @@ function addUploadButton(addModalContent) {
 
 /**
  * Used to add the inputs in the add modal (title and category)
+ * @param {HTMLElement} addModalContent
  */
 async function addInputs(addModalContent) {
   if (!categories.length) {
