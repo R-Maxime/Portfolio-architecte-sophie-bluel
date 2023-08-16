@@ -30,6 +30,7 @@ function closeAddModal(close) {
       editModalContent.style.display = '';
       displayAddModal();
       ModalEdit.deleteImage();
+      ModalEdit.closeEditModal();
     });
 
     closeButton.addEventListener('click', () => {

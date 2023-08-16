@@ -162,5 +162,6 @@ function displayEditModal() {
 export default {
   displayEditModal,
   addNewestWorks,
-  deleteImage
+  deleteImage,
+  closeEditModal
 };
