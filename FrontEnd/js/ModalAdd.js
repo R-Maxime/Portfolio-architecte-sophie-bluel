@@ -244,30 +244,30 @@ function listeningButton() {
       return;
     }
     addImagePreview(file);
+  });
 
-    const validationButton = document.querySelector('.validation');
-    validationButton.disabled = false;
-    removeErrorText();
+  const validationButton = document.querySelector('.validation');
+  validationButton.disabled = false;
+  removeErrorText();
 
-    validationButton.addEventListener('click', async (event) => {
-      event.preventDefault();
-      const title = listeningTitle();
-      const category = listeningCategory();
+  validationButton.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const title = listeningTitle();
+    const category = listeningCategory();
 
-      if (!title && !document.querySelector('.error-text')) {
-        addErrorText('.input-group input[type="text"]', titleErrorText);
-        return;
-      }
+    if (!title && !document.querySelector('.error-text')) {
+      addErrorText('.input-group input[type="text"]', titleErrorText);
+      return;
+    }
 
-      if (!category) {
-        addErrorText('.input-group select', categoryErrorText);
-        return;
-      }
+    if (!category) {
+      addErrorText('.input-group select', categoryErrorText);
+      return;
+    }
 
-      if (title && category) {
-        await onValidation(title, category, file);
-      }
-    });
+    if (title && category) {
+      await onValidation(title, category, fileInput.files[0]);
+    }
   });
 }
 
