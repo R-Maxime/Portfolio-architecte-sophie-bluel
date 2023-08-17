@@ -68,5 +68,5 @@ header {
 
 body {
   max-width: none;
-  margin: none;
+  margin: unset;
 }
